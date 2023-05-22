@@ -1,0 +1,5 @@
+﻿  main.c
+D:\visual studio programi\programiranje 2\T-Rex Game\T-Rex Game\main.c(9,19): warning C4013: 'kreiranjeDatoteke' undefined; assuming extern returning int
+D:\visual studio programi\programiranje 2\T-Rex Game\T-Rex Game\main.c(9,31): error C2065: 'imeDatoteke': undeclared identifier
+D:\visual studio programi\programiranje 2\T-Rex Game\T-Rex Game\main.c(13,19): warning C4013: 'izbornik' undefined; assuming extern returning int
+D:\visual studio programi\programiranje 2\T-Rex Game\T-Rex Game\main.c(13,31): error C2065: 'imeDatoteke': undeclared identifier
