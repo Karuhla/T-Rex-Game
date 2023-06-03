@@ -16,5 +16,4 @@ void* pretrazivanjeClanova(CLAN* const poljeClanova);
 int izlazIzPrograma(CLAN* poljeClanova);
 void igraFunkcija();
 
-
 #endif //HEADER_H

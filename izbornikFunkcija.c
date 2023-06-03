@@ -22,6 +22,7 @@ int izbornik(const char* const imeDatoteke) {
 
 	scanf("%d", &uvjet);
 
+
 	switch (uvjet) {
 	case 1:
 
@@ -41,6 +42,7 @@ int izbornik(const char* const imeDatoteke) {
 		}
 
 		poljeClanova = (CLAN*)ucitavanjeClanova(imeDatoteke);
+
 		if (poljeClanova == NULL) {
 			exit(EXIT_FAILURE);
 		}
@@ -59,6 +61,8 @@ int izbornik(const char* const imeDatoteke) {
 
 	case 4:
 
+		//Izadi iz igre!
+
 		uvjet = izlazIzPrograma(poljeClanova);
 
 		break;
@@ -66,7 +70,7 @@ int izbornik(const char* const imeDatoteke) {
 	default:
 
 		uvjet = 0;
-
+	
 	}
 
 	return uvjet;
