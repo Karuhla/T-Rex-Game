@@ -1,5 +1,5 @@
-ZeleniCaj 13
-CrniCaj 11
-Kamilica 9
-Menta 5
-Sipak 2
+ZeleniCaj 5
+CrniCaj 4
+Kamilica 3
+Menta 2
+Sipak 1

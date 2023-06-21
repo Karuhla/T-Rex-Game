@@ -6,12 +6,13 @@ int main() {
 
 	int uvjet = 1;
 	char* imeDatoteke = "highscores.txt";
+	int brojScoreova = 0;
 
-	kreiranjeDatoteke(imeDatoteke);
+	brojScoreova = kreiranjeDatoteke(imeDatoteke);
 
 	while (uvjet) {
 
-		uvjet = izbornik(imeDatoteke);
+		uvjet = izbornik(imeDatoteke, &brojScoreova);
 
 	}
 

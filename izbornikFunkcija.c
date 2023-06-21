@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "header.h"
 
-int izbornik(const char* const imeDatoteke) {
+int izbornik(const char* const imeDatoteke, int *brojClanova) {
 
 	printf("====================");
 	printf("Odaberite jednu od ponudenih opcija:");
@@ -11,14 +11,20 @@ int izbornik(const char* const imeDatoteke) {
 	printf("\t\t\tOpcija 1: Igraj T-Rex game!\n");
 	printf("\t\t\tOpcija 2: Pogledaj highscore\n");
 	printf("\t\t\tOpcija 3: pretrazivanje po imenu!\n");
-	printf("\t\t\tOpcija 4: Izadi iz igre!\n");
+	printf("\t\t\tOpcija 4: Brisanje highscores!\n");
+	printf("\t\t\tOpcija 5: Izadi iz igre!\n");
 	printf("======================================\
 ======================================\n");
 
 	int uvjet = 0;
+	int score = 0;
+	int status = 0;
 
 	static CLAN* poljeClanova = NULL;
 	static CLAN* pronadeniClan = NULL;
+	CLAN player = { 0 };
+
+	FILE* fp = NULL;
 
 	scanf("%d", &uvjet);
 
@@ -26,9 +32,24 @@ int izbornik(const char* const imeDatoteke) {
 	switch (uvjet) {
 	case 1:
 
-		//Igraj T-Rex game!
+		//Igraj T-Rex game!	
 
-		igraFunkcija();
+		getchar();
+		printf("Unesi ime:\n");
+		scanf("%29[^\n]", player.ime);
+		getchar();
+
+		score = igraFunkcija();
+
+		printf("\nVas score je %d!\n", score);
+
+
+		player.highscore = score;
+	
+		(*brojClanova)++;
+
+	
+		zapisPlayer(imeDatoteke, player.ime, player.highscore, *brojClanova);
 
 		break;
 
@@ -36,18 +57,24 @@ int izbornik(const char* const imeDatoteke) {
 
 		//Pogledaj highscore!
 
+
+
 		if (poljeClanova != NULL) {
 			free(poljeClanova);
 			poljeClanova = NULL;
 		}
 
-		poljeClanova = (CLAN*)ucitavanjeClanova(imeDatoteke);
+		poljeClanova = (CLAN*)ucitavanjeClanova(imeDatoteke, *brojClanova);
 
 		if (poljeClanova == NULL) {
 			exit(EXIT_FAILURE);
 		}
 
-		ispisivanjeClanova(poljeClanova);
+
+
+		highscores(imeDatoteke, *brojClanova);
+
+	
 
 		break;
 
@@ -55,11 +82,19 @@ int izbornik(const char* const imeDatoteke) {
 
 		//Pretrazivanje po imenu!
 
-		pronadeniClan = (CLAN*)pretrazivanjeClanova(poljeClanova);
+		pronadeniClan = (CLAN*)pretrazivanjeClanova(poljeClanova, *brojClanova);
 
 		break;
 
 	case 4:
+
+
+		brisanjeDatoteke(imeDatoteke);
+		
+
+		break;
+
+	case 5:
 
 		//Izadi iz igre!
 
@@ -70,7 +105,7 @@ int izbornik(const char* const imeDatoteke) {
 	default:
 
 		uvjet = 0;
-	
+
 	}
 
 	return uvjet;

@@ -8,7 +8,7 @@
 #define OBSTACLE_CHAR '#'
 #define OBSTACLE_DELAY 10
 
-void igraFunkcija() {
+int igraFunkcija() {
 
     int trex_pos = SCREEN_HEIGHT - GROUND_HEIGHT; // position za T-Rex // 15
     int is_jumping = 0;
@@ -25,23 +25,20 @@ void igraFunkcija() {
     int obstNePostoji = 0;
     int novaObst = 0;
     int filling = 0;
+    int obstPrviPutIkadProsla = 0;
+    int score = 0;
+    int gameover = 0;
 
     while (1) {
 
         system("cls");
 
-        // Crtanje T-Rexa
+        printf(" SCORE: %d", score);
 
-        // prije nove obstacle
-
-        if (obstNePostoji) {
-            printf("obstnepostoji ");
-        }
-        //printf("obst je %d", novaObst);
 
         if (!novaObst) {
             if (!(pada) && trex_pos != 10) {
-                printf("obstacle nije prosla t-rexa");
+                
                 for (int i = 0; i < trex_pos; i++) {
                     printf("\n");
                 }
@@ -49,15 +46,88 @@ void igraFunkcija() {
                     printf(" ");
                 }
                 printf(" @\n");
-                for (int i = 0; i < trex_offset; i++) {
-                    printf(" ");
+
+
+                //za drugi dio
+
+                if (trex_pos != 15) {
+                    if (obstPrviPutIkadProsla) {
+
+                        for (int i = 0; i < trex_offset; i++) {
+                            printf(" ");
+                        }
+
+                        printf("\\O");
+
+                        for (int i = 0; i < jump_height; i++) {
+
+                            printf("\n");
+                        }
+
+                        filling = trex_offset - novaObst;
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
+                        if (novaObst != -1) {
+                            printf("%c", OBSTACLE_CHAR);
+                        }
+
+                        for (int i = 0; i < filling-1; i++) {
+                            printf(" ");
+                        }
+
+                    }
+                    else {
+                        for (int i = 0; i < trex_offset; i++) {
+                            printf(" ");
+
+                        }
+                        printf("\\O");
+                    }
+
+
+
                 }
-                printf("\\O");
+
+                else {
+
+
+
+                    if (obstPrviPutIkadProsla) {
+
+                        filling = trex_offset - novaObst;
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
+                        if (novaObst != -1) {
+                            printf("%c", OBSTACLE_CHAR);
+                        }
+
+                        for (int i = 0; i < filling - 1 - 1 - 1; i++) {
+                            printf(" ");
+                        }
+
+                    }
+                    else {
+                        for (int i = 0; i < trex_offset; i++) {
+                            printf(" ");
+                        }
+                    }
+
+                    printf("\\O");
+
+                }
+
+
 
 
             }
             else if (obstacle_pos == 0 && !pada) {
-                printf("SOGRGGUIGRUOGUOGOGGSSORUFGOSRGOSRGSR");
+                
                 for (int i = 0; i < trex_pos; i++) {
                     printf("\n");
                 }
@@ -76,30 +146,30 @@ void igraFunkcija() {
                 if (obstacle_pos == 0) {
                     obstNePostoji = 0;
                     for (int i = 0; i < (trex_offset + 2) - 1; i++) {
-                        printf("F");
+                        printf(" ");
                     }
                     printf(" %c\n", OBSTACLE_CHAR);
                 }
                 else if (obstacle_pos == 1) {
                     for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("F");
+                        printf(" ");
                     }
                     printf(" %c\n", OBSTACLE_CHAR);
                 }
                 else if (obstNePostoji) {
                     for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("B");
+                        printf(" ");
                     }
                     printf("%c\n", OBSTACLE_CHAR);
                 }
                 else {
                     for (int i = 0; i < trex_offset + 2; i++) {
-                        printf("F");
+                        printf(" ");
                     }
                 }
             }
             else if (pada) {
-                printf("t-rex pada");
+                
                 for (int i = 0; i < trex_pos; i++) {
                     printf("\n");
                 }
@@ -111,10 +181,7 @@ void igraFunkcija() {
                     printf(" ");
                 }
                 printf("\\O");
-                /*for (int i = 0; i < jump_height; i++) {
-
-                    printf("\n");
-                }*/
+                
                 if (trex_pos == 11) {
                     for (int i = 0; i < 4; i++) {
                         printf("\n");
@@ -138,31 +205,32 @@ void igraFunkcija() {
                 if (obstacle_pos == 0) {
                     obstNePostoji = 0;
                     for (int i = 0; i < (trex_offset + 2) - 1; i++) {
-                        printf("K");
+                        printf(" ");
                     }
                     printf(" %c\n", OBSTACLE_CHAR);
                 }
                 else if (obstacle_pos == 1) {
                     for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("K");
+                        printf(" ");
                     }
                     printf(" %c\n", OBSTACLE_CHAR);
                 }
                 else if (obstNePostoji) {
                     for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("B");
+                        printf(" ");
                     }
                     printf("%c\n", OBSTACLE_CHAR);
                 }
                 else {
                     for (int i = 0; i < trex_offset + 2; i++) {
-                        printf("K");
+                        printf(" ");
                     }
                 }
 
             }
             else if (trex_pos == 10) {
-                printf("trex je 10");
+                
+
                 for (int i = 0; i < trex_pos; i++) {
                     printf("\n");
                 }
@@ -174,48 +242,82 @@ void igraFunkcija() {
                     printf(" ");
                 }
                 printf("\\O");
-                for (int i = 0; i < jump_height; i++) {
 
-                    printf("\n");
-                }
 
-                if (obstacle_pos == 0) {
-                    obstNePostoji = 0;
-                    for (int i = 0; i < (trex_offset + 2) - 1; i++) {
-                        printf("B");
+                
+                if (obstPrviPutIkadProsla) {
+
+                    for (int i = 0; i < jump_height; i++) {
+
+                        printf("\n");
                     }
-                    printf(" %c\n", OBSTACLE_CHAR);
-                }
-                else if (obstacle_pos == 1) {
-                    for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("B");
+
+
+                    filling = trex_offset - novaObst;
+
+                    for (int i = -2; i < novaObst; i++) {
+                        printf(" ");
                     }
-                    printf(" %c\n", OBSTACLE_CHAR);
-                }
-                else if (obstNePostoji) {
-                    for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("B");
+
+                    if (novaObst != -1) {
+                        printf("%c", OBSTACLE_CHAR);
                     }
-                    printf("%c\n", OBSTACLE_CHAR);
+
+                    for (int i = 0; i < filling - 1 - 1 - 1; i++) {
+                        printf(" ");
+                    }
+
                 }
+                
+
                 else {
-                    for (int i = 0; i < trex_offset + 2; i++) {
-                        printf("B");
+                    
+                    for (int i = 0; i < jump_height; i++) {
+
+                        printf("\n");
+                    }
+
+
+                    if (obstacle_pos == 0) {
+                        obstNePostoji = 0;
+                        for (int i = 0; i < (trex_offset + 2) - 1; i++) {
+                            printf(" ");
+                        }
+                        printf(" %c\n", OBSTACLE_CHAR);
+                    }
+                    else if (obstacle_pos == 1) {
+                        for (int i = 0; i < (trex_offset + 2); i++) {
+                            printf(" ");
+                        }
+                        printf(" %c\n", OBSTACLE_CHAR);
+                    }
+                    else if (obstNePostoji) {
+                        for (int i = 0; i < (trex_offset + 2); i++) {
+                            printf(" ");
+                        }
+                        printf("%c\n", OBSTACLE_CHAR);
+                    }
+                    else {
+                        for (int i = 0; i < trex_offset + 2; i++) {
+                            printf(" ");
+                        }
                     }
                 }
+
+
 
             }
             else {
                 printf("Kako se ovo dogodilo");
             }
         }
-        
+
         //nakon sto je obstacle prosla ispod t-rexa
 
         else if (novaObst) {
 
             if (!(pada) && trex_pos != 10 && trex_pos != 15) {
-                    //skace i nije najvislje i najnize
+                
                 for (int i = 0; i < trex_pos; i++) {
                     printf("\n");
                 }
@@ -237,23 +339,75 @@ void igraFunkcija() {
 
                 filling = trex_offset - novaObst;
 
+
+
                 if (obstacle_pos != 1 && obstacle_pos != 0) {
 
-                    for (int i = 0; i < novaObst + 2; i++) {
-                        printf("4");
-                    }
 
                     if (novaObst != -1) {
+
+                        for (int i = -2; i < novaObst; i++) {
+                           
+                            printf(" ");
+                        }
+
                         printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling - 1; i++) {
+
+                            printf(" ");
+
+                        }
+                    }
+                    else if (novaObst == -1 && obstacle_pos == SCREEN_WIDTH - trex_offset - 3 - 10) {
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
+                        printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling - 1 ; i++) {
+
+                            printf(" ");
+
+                        }
+                    }
+                    else if (novaObst == -1 && obstacle_pos == SCREEN_WIDTH - trex_offset - 3 - 11) {
+                        printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling; i++) {
+
+                            printf(" ");
+
+                        }
+                    }
+                    
+                    else {
+                       
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
+                        for (int i = 0; i < filling; i++) {
+
+                            printf(" ");
+
+                        }
                     }
 
-                    for (int i = 0; i < filling + 1 - 2 +1; i++) {
-                        printf("5");
-                    }
+
+
+
+
                 }
+
+
+
                 else {
                     for (int i = 0; i < novaObst; i++) {
-                        printf("4");
+                        printf(" ");
                     }
 
                     if (novaObst != -1) {
@@ -261,39 +415,30 @@ void igraFunkcija() {
                     }
 
                     for (int i = 0; i < filling + 1; i++) {
-                        printf("5");
+                        printf(" ");
                     }
                 }
 
                 if (is_jumping) {
-                                        
+
                     if (obstacle_pos == 0) {
                         obstNePostoji = 0;
-                        //for (int i = 0; i < (trex_offset + 2); i++) {
-                        //    //printf("b");
-                        //}
-                        printf("q\n");
-                        //printf(" %c\n", OBSTACLE_CHAR);
+
+                        printf("%c\n", OBSTACLE_CHAR);
+       
                     }
                     else if (obstacle_pos == 1) {
-                        //for (int i = 0; i < (trex_offset + 2); i++) {
-                        //    //printf("b");
-                        //}
-                        printf(" Q\n");
-                        //printf(" %c\n", OBSTACLE_CHAR);
+           
+                        printf(" %c\n", OBSTACLE_CHAR);
+                    
 
                     }
                     else if (obstNePostoji) {
-                        //for (int i = 0; i < (trex_offset + 2); i++) {
-                        //    //printf("b");
-                        //}
-                        //printf("%c\n", OBSTACLE_CHAR);
+        
                         printf("\n");
                     }
                     else {
-                        //for (int i = 0; i < trex_offset + 2; i++) {
-                        //    //printf("b");
-                        //}
+                 
                     }
 
                 }
@@ -311,56 +456,94 @@ void igraFunkcija() {
 
                 filling = trex_offset - novaObst;
 
-                /*for (int i = 0; i < novaObst; i++) {
-                    printf("1");
-                }
-
-                if (novaObst != -1) {
-                    printf("%c", OBSTACLE_CHAR);
-                }
-
-                for (int i = 0; i < filling-1; i++) {
-                    printf("2");
-                }*/
+  
 
                 if (obstacle_pos != 1 && obstacle_pos != 0) {
-                    //if () {
-
-                    //}
-                    for (int i = 0; i < novaObst + 1 +1; i++) {
-                        printf("R");
-                    }
+ 
 
                     if (novaObst != -1) {
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
                         printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling - 1 - 1 - 1; i++) {
+
+                            printf(" ");
+
+                        }
+                    }
+                    else if (novaObst == -1 && obstacle_pos == SCREEN_WIDTH - trex_offset - 3 - 10) {
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
+                        printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling - 1 - 1 - 1; i++) {
+
+                            printf(" ");
+
+                        }
+                    }
+                    else if (novaObst == -1 && obstacle_pos == SCREEN_WIDTH - trex_offset - 3 - 11) {
+                        printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling - 1 - 1; i++) {
+
+                            printf(" ");
+
+                        }
+
                     }
 
-                    for (int i = 0; i < filling -1-1; i++) {
-                        printf("r");
+                    else {
+                  
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
+                        for (int i = 0; i < filling - 1 - 1; i++) {
+
+                            printf(" ");
+
+                        }
+                        
                     }
+
+
                 }
-
-
                 
+
+
                 else {
-                    for (int i = 0; i < novaObst; i++) {
-                        printf("X");
-                    }
+    
+                    for (int i = 0; i < trex_offset; i++) {
 
-                    if (novaObst != -1) {
-                        printf("%c", OBSTACLE_CHAR);
-                    }
+                        printf(" ");
 
-                    for (int i = 0; i < filling + 1; i++) {
-                        printf("x");
                     }
+                    printf("\\O\n");
+                    for (int i = 0; i < SCREEN_WIDTH; i++) {
+
+                        printf("-");
+
+                    }
+                    printf("\n");
+                    printf("\n\tGame Over!\n\n");
+                    return score;
                 }
-                
+
                 printf("\\O");
-            
+                
+
             }
             else if (obstacle_pos == 0 && !pada) {
-                printf("SOGRGGUIGRUOGUOGOGGSSORUFGOSRGOSRGSR");
+      
                 for (int i = 0; i < trex_pos; i++) {
                     printf("\n");
                 }
@@ -381,33 +564,32 @@ void igraFunkcija() {
                 if (obstacle_pos == 0) {
                     obstNePostoji = 0;
                     for (int i = 0; i < (trex_offset + 2) - 1; i++) {
-                        printf("F");
+                        printf(" ");
                     }
-                    //printf(" %c\n", OBSTACLE_CHAR);
-                    //cini mi se dobar
-                    printf(" g\n");
+            
+                    printf(" %c\n", OBSTACLE_CHAR);
                 }
                 else if (obstacle_pos == 1) {
                     for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("F");
+                        printf(" ");
                     }
-                    //printf(" %c\n", OBSTACLE_CHAR);
-                    printf("G\n");
+                   
+                    printf("%c\n", OBSTACLE_CHAR);
                 }
                 else if (obstNePostoji) {
                     for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("B");
+                        printf(" ");
                     }
                     printf("%c\n", OBSTACLE_CHAR);
                 }
                 else {
                     for (int i = 0; i < trex_offset + 2; i++) {
-                        printf("F");
+                        printf(" ");
                     }
                 }
             }
             else if (pada) {
-                //printf("t-rex pada");
+              
                 for (int i = 0; i < trex_pos; i++) {
                     printf("\n");
                 }
@@ -415,7 +597,7 @@ void igraFunkcija() {
                     printf(" ");
                 }
                 printf(" @\n");
-                
+
                 for (int i = 0; i < trex_offset; i++) {
                     printf(" ");
                 }
@@ -437,84 +619,101 @@ void igraFunkcija() {
                         printf("\n");
                     }
                 }
-                /*if (trex_pos == 14) {
-                    for (int i = 0; i < 1; i++) {
-                        printf("\n");
-                    }
-                }*/
+      
 
                 filling = trex_offset - novaObst;
 
                 if (obstacle_pos != 1 && obstacle_pos != 0) {
-
-                    for (int i = 0; i < novaObst+2; i++) {
-                        printf("7");
-                    }
+          
 
                     if (novaObst != -1) {
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
                         printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling - 1; i++) {
+
+                            printf(" ");
+
+                        }
+                    }
+                    else if (novaObst == -1 && obstacle_pos == SCREEN_WIDTH - trex_offset - 3 - 10) {
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
+                        printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling - 1; i++) {
+
+                            printf(" ");
+
+                        }
+                    }
+                    else if (novaObst == -1 && obstacle_pos == SCREEN_WIDTH - trex_offset - 3 - 11) {
+                        printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling; i++) {
+
+                            printf(" ");
+
+                        }
                     }
 
-                    for (int i = 0; i < filling + 1-2+1; i++) {
-                        printf("6");
+                    else {
+                  
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
+                        for (int i = 0; i < filling; i++) {
+
+                            printf(" ");
+
+                        }
                     }
                 }
-                else {
-                    for (int i = 0; i < novaObst; i++) {
-                        printf("7");
-                    }
 
-                    if (novaObst != -1) {
-                        printf("%c", OBSTACLE_CHAR);
-                    }
 
-                    for (int i = 0; i < filling + 1; i++) {
-                        printf("6");
-                    }
-                }
 
-                
-                
-                
-                /*for (int i = 0; i < jump_height; i++) {
 
-                    printf("\n");
-                }*/
-                
+       
+
                 if (obstacle_pos == 0) {
                     obstNePostoji = 0;
-                    /*for (int i = 0; i < (trex_offset + 2) - 1; i++) {
-                        printf("K");
-                    }*/
-                    printf("s\n");
-                    //printf("%c\n", OBSTACLE_CHAR);
+                    for (int i = 0; i < (trex_offset + 2) - 1; i++) {
+                        printf(" ");
+                    }
+                    printf(" %c\n", OBSTACLE_CHAR);
+         
                 }
                 else if (obstacle_pos == 1) {
-                    /*for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("K");
-                    }*/
-                    printf(" S\n");
-                    //printf(" %c\n", OBSTACLE_CHAR);
+                    for (int i = 0; i < (trex_offset + 2); i++) {
+                        printf(" ");
+                    }
+                    printf(" %c\n", OBSTACLE_CHAR);
+               
 
                 }
                 else if (obstNePostoji) {
-                    /*for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("B");
-                    }*/
-                    //printf("%c\n", OBSTACLE_CHAR);
+            
                     printf("\n");
                 }
                 else if (trex_pos == 14) {
 
                 }
                 else {
-                    /*for (int i = 0; i < trex_offset + 2; i++) {
-                        printf("K");
-                    }*/
+     
                 }
 
             }
             else if (trex_pos == 10) {
+ 
                 for (int i = 0; i < trex_pos; i++) {
                     printf("\n");
                 }
@@ -535,149 +734,196 @@ void igraFunkcija() {
 
                 if (obstacle_pos != 1 && obstacle_pos != 0) {
 
-                    for (int i = 0; i < novaObst + 2; i++) {
-                        printf("8");
-                    }
 
                     if (novaObst != -1) {
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
                         printf("%c", OBSTACLE_CHAR);
-                    }
 
-                    for (int i = 0; i < filling + 1 - 2+1; i++) {
-                        printf("9");
-                    }
-                }
-                else {
-                    for (int i = 0; i < novaObst; i++) {
-                        printf("8");
-                    }
+                        for (int i = 0; i < filling - 1; i++) {
 
-                    if (novaObst != -1) {
+                            printf(" ");
+
+                        }
+                    }
+                    else if (novaObst == -1 && obstacle_pos == SCREEN_WIDTH - trex_offset - 3 - 10) {
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
                         printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling - 1; i++) {
+
+                            printf(" ");
+
+                        }
+                    }
+                    else if (novaObst == -1 && obstacle_pos == SCREEN_WIDTH - trex_offset - 3 - 11) {
+                        printf("%c", OBSTACLE_CHAR);
+
+                        for (int i = 0; i < filling; i++) {
+
+                            printf(" ");
+
+                        }
                     }
 
-                    for (int i = 0; i < filling + 1; i++) {
-                        printf("9");
+                    else {
+                   
+
+                        for (int i = -2; i < novaObst; i++) {
+                            printf(" ");
+                        }
+
+                        for (int i = 0; i < filling; i++) {
+
+                            printf(" ");
+
+                        }
                     }
                 }
 
                 if (obstacle_pos == 0) {
+                   
                     obstNePostoji = 0;
-                    /*for (int i = 0; i < (trex_offset + 2) - 1; i++) {
-                        printf("B");
-                    }*/
+                    for (int i = 0; i < (trex_offset + 2) - 1; i++) {
+                        printf(" ");
+                    }
                     printf(" %c\n", OBSTACLE_CHAR);
                 }
                 else if (obstacle_pos == 1) {
-                    /*for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("B");
-                    }*/
+                  
+                    for (int i = 0; i < (trex_offset + 2); i++) {
+                        printf(" ");
+                    }
                     printf(" %c\n", OBSTACLE_CHAR);
                 }
                 else if (obstNePostoji) {
-                    /*for (int i = 0; i < (trex_offset + 2); i++) {
-                        printf("B");
-                    }*/
-                    //printf("%c\n", OBSTACLE_CHAR);
+     
                     printf("\n");
                 }
                 else {
-                    /*for (int i = 0; i < trex_offset + 2; i++) {
-                        printf("B");
-                    }*/
+
                 }
             }
             else {
-            printf("Kako se ovo dogodilo");
+                printf("Kako se ovo dogodilo");
             }
-            
+
         }
 
         //za prije nove obst
 
-        if (is_jumping && !novaObst) {
+        if (is_jumping && !novaObst && !obstPrviPutIkadProsla) {
 
             for (int i = 0; i < jump_height; i++) {
 
                 printf("\n");
             }
             if (obstacle_pos == 0) {
-                 obstNePostoji = 0;
+                obstNePostoji = 0;
                 for (int i = 0; i < (trex_offset + 2) - 1; i++) {
-                    printf("b");
+                    printf(" ");
                 }
                 printf(" %c\n", OBSTACLE_CHAR);
             }
             else if (obstacle_pos == 1) {
-                 for (int i = 0; i < (trex_offset + 2); i++) {
-                     printf("b");
-                 }
-                 printf(" %c\n", OBSTACLE_CHAR);
+                for (int i = 0; i < (trex_offset + 2); i++) {
+                    printf(" ");
+                }
+                printf(" %c\n", OBSTACLE_CHAR);
             }
             else if (obstNePostoji) {
-                 for (int i = 0; i < (trex_offset + 2); i++) {
-                     printf("b");
-                 }
-                 printf("%c\n", OBSTACLE_CHAR);
+                for (int i = 0; i < (trex_offset + 2); i++) {
+                    printf(" ");
+                }
+                printf("%c\n", OBSTACLE_CHAR);
             }
             else {
                 for (int i = 0; i < trex_offset + 2; i++) {
-                    printf("b");
+                    printf(" ");
                 }
             }
 
         }
-        
+
         // Spawn obstacle
-        
-        //if (!novaObst) {
 
-            if (obstacle_pos < 0) {
-                obstNePostoji = 1;
-                obstDesno = 0;
-                obstacle_pos = SCREEN_WIDTH - trex_offset - 3;
-                obstNePostoji = 0;
-                //obstPassed = 0;
-                //novaObst = 1;
+ 
 
+        if (obstacle_pos < 0) {
+            obstNePostoji = 1;
+            obstDesno = 0;
+            obstacle_pos = SCREEN_WIDTH - trex_offset - 3;
+            obstNePostoji = 0;
+
+
+        }
+        else if (obstacle_pos > 1) {
+            obstDesno = 1;
+            obstNePostoji = 0;
+            if (obstacle_pos < trex_offset) {
+               
             }
-            else if (obstacle_pos > 1) {
-                obstDesno = 1;
-                obstNePostoji = 0;
-                if (obstacle_pos < trex_offset) {
-                    //obstPassed = 1;
+            
+            for (int i = 0; i < obstacle_pos; i++) {
+
+                if (obstacle_pos == 1) {
+                    i++;
+                   
                 }
-                //printf("U");
-                for (int i = 0; i < obstacle_pos; i++) {
+                printf(" ");
 
-                    if (obstacle_pos == 1) {
-                        i++;
-                        //printf("PLEASE");
-                    }
-                    printf("a");
+            }
 
-                }
-
-                printf("%c\n", OBSTACLE_CHAR);
-            }
-            else if (obstacle_pos == 0) {
-                obstNePostoji = 1;
-                novaObst = 1;
-                obstPassed = 1;
-                novaObst = trex_offset;
-            }
-            else {
-                obstDesno = 0;
-                obstNePostoji = 0;
-                //printf("8\n");
-            }
-        /*}
+            printf("%c\n", OBSTACLE_CHAR);
+        }
+        else if (obstacle_pos == 0) {
+            obstNePostoji = 1;
+            score++;
+            novaObst = 1;
+            obstPrviPutIkadProsla = 1;
+            obstPassed = 1;
+            novaObst = trex_offset;
+        }
         else {
+            obstDesno = 0;
+            obstNePostoji = 0;
+          
+        }
 
-        }*/
-        
 
+        if (trex_pos == 15 && obstNePostoji || trex_pos == 15 && novaObst == 8)
         
+        {
+
+            if (trex_pos == 15 && novaObst == 8) {
+                score -= 1;
+            }
+
+
+            gameover = 1;
+            if (gameover) {
+                printf("\n");
+
+                for (int i = 0; i < SCREEN_WIDTH; i++) {
+
+                    printf("-");
+
+                }
+                printf("\n");
+            }
+
+            printf("\n\tGame Over!\n\n");
+         
+            
+            return score;
+        }
 
         // Crtanje poda
         for (int i = 0; i < SCREEN_WIDTH; i++) {
@@ -687,18 +933,11 @@ void igraFunkcija() {
         }
         printf("\n");
 
-        // Check for collision
-
-        /*if (trex_offset == obstacle_pos && obstacle_pos != 0) {
-            printf("\nGame Over!\n");
-            break;
-        }*/
-
         // Check for user input
 
         if (_kbhit()) {
             char key = _getch();
-            if (key == ' ') {
+            if (key == ' ' && trex_pos == 15) {
                 skace = 1;
                 is_jumping = 1;
                 u_zraku_je = 1;
@@ -706,7 +945,7 @@ void igraFunkcija() {
             }
             if (key == '0') {
                 system("cls");
-                return;
+                return 0;
             }
         }
 
@@ -742,14 +981,12 @@ void igraFunkcija() {
         if (obstacle_pos >= 0) {
             obstacle_pos--;
         }
-        if(obstPassed){
+        if (obstPassed) {
             if (novaObst >= 0) {
                 novaObst--;
             }
 
         }
-        
-        
 
         // Delay for smoother animation
         Sleep(20);
