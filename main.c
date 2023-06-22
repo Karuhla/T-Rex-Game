@@ -5,7 +5,9 @@
 int main() {
 
 	int uvjet = 1;
+
 	char* imeDatoteke = "highscores.txt";
+
 	int brojScoreova = 0;
 
 	brojScoreova = kreiranjeDatoteke(imeDatoteke);

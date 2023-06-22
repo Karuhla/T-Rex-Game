@@ -11,21 +11,19 @@ int kreiranjeDatoteke(const char* const imeDatoteke) {
 
 	FILE* pF = fopen(imeDatoteke, "a+");
 
-
-
 	if (pF == NULL) {
 		perror("Kreiranje datoteke");
 		exit(EXIT_FAILURE);
 	}
 
 	int count = 0;
-	char line[100]; // Assuming each line has a maximum of 100 characters
+	char line[100];
 
 	while (fgets(line, sizeof(line), pF) != NULL) {
 		for (int i = 0; line[i] != '\0'; i++) {
 			if (isdigit(line[i])) {
 				count++;
-				while (isdigit(line[i])) // Skip the entire number
+				while (isdigit(line[i])) 
 					i++;
 			}
 		}
@@ -73,8 +71,6 @@ void highscores(const char* const imeDatoteke, int BRCLAN) {
 
 	FILE* pF = fopen(imeDatoteke, "r");
 
-
-
 	if (pF == NULL) {
 		perror("Ucitavanje igraca");
 		return NULL;
@@ -94,8 +90,6 @@ void highscores(const char* const imeDatoteke, int BRCLAN) {
 	CLAN* highscorePolje = (CLAN*)calloc(BRCLAN, sizeof(CLAN));
 	CLAN* tempPolje = (CLAN*)calloc(BRCLAN, sizeof(CLAN));
 
-
-
 	for (int i = 0; i < BRCLAN; i++) {
 
 		fscanf(pF, "%s %d", (poljeClanova + i)->ime, &(poljeClanova + i)->highscore);
@@ -114,16 +108,13 @@ void highscores(const char* const imeDatoteke, int BRCLAN) {
 				max = (tempPolje + j)->highscore;
 				strcpy(maxIme, (tempPolje + j)->ime);
 			
-
 			}
 
 		}
 
 		strcpy((highscorePolje + i)->ime, maxIme);
-
-		
-
 		(highscorePolje + i)->highscore = max;
+
 		for (int i = 0; i < BRCLAN; i++) {
 			int priv = strcmp(maxIme, (tempPolje + i)->ime);
 			if ((max == (tempPolje+i)->highscore) && priv == 0) {
@@ -131,17 +122,11 @@ void highscores(const char* const imeDatoteke, int BRCLAN) {
 			}
 		}
 		
-
-		
-
-
-
 	}
+
 	for (int i = 0; i < 5; i++) {
 		printf("broj %d igrac: %s sa highscoreom %d\n", i + 1, (highscorePolje + i)->ime, (highscorePolje + i)->highscore);
 	}
-
-
 
 	fclose(pF);
 
@@ -190,8 +175,6 @@ void* pretrazivanjeClanova(CLAN* const poljeClanova, int BRCLAN) {
 void zapisPlayer(const char* const imeDatoteke, char ime[30], int score, int BRCLAN) {
 
 	FILE* pF = fopen(imeDatoteke, "a+");
-
-
 
 	if (pF == NULL) {
 		perror("Ucitavanje igraca");

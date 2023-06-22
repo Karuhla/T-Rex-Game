@@ -43,12 +43,10 @@ int izbornik(const char* const imeDatoteke, int *brojClanova) {
 
 		printf("\nVas score je %d!\n", score);
 
-
 		player.highscore = score;
 	
 		(*brojClanova)++;
-
-	
+			
 		zapisPlayer(imeDatoteke, player.ime, player.highscore, *brojClanova);
 
 		break;
@@ -56,8 +54,6 @@ int izbornik(const char* const imeDatoteke, int *brojClanova) {
 	case 2:
 
 		//Pogledaj highscore!
-
-
 
 		if (poljeClanova != NULL) {
 			free(poljeClanova);
@@ -70,12 +66,8 @@ int izbornik(const char* const imeDatoteke, int *brojClanova) {
 			exit(EXIT_FAILURE);
 		}
 
-
-
 		highscores(imeDatoteke, *brojClanova);
-
-	
-
+		
 		break;
 
 	case 3:

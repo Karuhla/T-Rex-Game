@@ -35,7 +35,6 @@ int igraFunkcija() {
 
         printf(" SCORE: %d", score);
 
-
         if (!novaObst) {
             if (!(pada) && trex_pos != 10) {
                 
@@ -853,9 +852,7 @@ int igraFunkcija() {
         }
 
         // Spawn obstacle
-
- 
-
+        
         if (obstacle_pos < 0) {
             obstNePostoji = 1;
             obstDesno = 0;
@@ -988,7 +985,6 @@ int igraFunkcija() {
 
         }
 
-        // Delay for smoother animation
         Sleep(20);
 
     }
